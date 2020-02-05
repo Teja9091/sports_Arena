@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const userss = require('./controller/userReg');
+const users = require('./controller/userReg');
 const app = express();
 
 mongoose.connect('mongodb://localhost/sports_Arena')
@@ -8,6 +8,6 @@ mongoose.connect('mongodb://localhost/sports_Arena')
     .catch(() => console.log('Connection failed'));
 
 app.use(express.json());
-app.use('/register', userss);
+app.use('/register', users);
 
 app.listen(2024, () => console.log('Listening on port 2024'));
