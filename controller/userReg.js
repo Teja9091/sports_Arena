@@ -15,6 +15,7 @@ router.post('/', async (req,res) => {
     });
     user = await user.save();
     res.send(user);
+    console.log(user);
 });
 
 module.exports = router;
