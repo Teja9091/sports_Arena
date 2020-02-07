@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const userData = require('../dblogic/userdata')
+const userData= require('../service/userdata')
 
 router.post('/',userData);
 
