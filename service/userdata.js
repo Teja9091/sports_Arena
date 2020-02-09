@@ -1,5 +1,7 @@
 const Joi = require('joi');
-const User = require('../models/user')
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
+const User = require('../models/user');
 
 
 function validateUser(userData) {
@@ -10,39 +12,28 @@ function validateUser(userData) {
         email: Joi.string().min(4).max(30).required().email(),
         mobile: Joi.string().min(10).max(10).required(),
         pwd: Joi.string().min(4).max(22).required(),
-        retypePwd: Joi.string().min(4).max(22).required(),
+        //retypePwd: Joi.string().min(4).max(22).required(),
     }
     return Joi.validate(userData,schema , {abortEarly: false});
 };
 
-const uData = async (req,res) => {
+const uData =  (req,res) => {
     const result = validateUser(req.body);
     if (result.error) return res.status(400).send(result.error.details[0].message);
     
-        let toCreate = {
+    let pwd = req.body.pwd;
+    //let retypePwd = req.body.retypePwd;
+    return bcrypt.hash(pwd,10)
+    .then(hashedPassword => {
+        let toCreate = new User({
             name: req.body.name,
             userName: req.body.userName,
             dob: req.body.dob,
             email: req.body.email,
             mobile: req.body.mobile,
-            pwd: req.body.pwd,
-            retypePwd: req.body.retypePwd
-        };
-    
-    /*
-    let user = new User(toCreate)
-    //if(pwd === retypePwd) {
-        user = await user.save();
-        res.send(user);
-        console.log(user);
-    //} else console.log("Password entered doesnt match");
-    */
-   let pwd = req.body.pwd;
-   let retypePwd = req.body.retypePwd;
-
-   if (pwd === retypePwd) {
-
-    User.create(toCreate)
+            pwd: hashedPassword,
+        });
+        User.create(toCreate)
         .then(user => {
             res.status(200).json({
                 data: user,
@@ -55,8 +46,28 @@ const uData = async (req,res) => {
                 message: error.message
             })
         })
-    } else res.status(400).send("Passwords doesn't match");
+        //return user.save();
+    });
+    //if (pwd === retypePwd) {
+        
+    //} else res.status(400).send("Passwords doesn't match");
 
+    /*
+    let user = new User(toCreate)
+    //if(pwd === retypePwd) {
+        user = await user.save();
+        res.send(user);
+        console.log(user);
+    //} else console.log("Password entered doesnt match");
+    */
+  // if(toCreate.pwd === toCreate.retypePwd) {
+  
+    //bcrypt.hash(toCreate.pwd, saltRounds, function (err,hash) { 
+
+    
+   // });
+
+    //} else res.status(400).send("Passwords doesn't match");
 
 };
 

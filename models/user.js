@@ -33,15 +33,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 15
-    },
-    retypePwd: {
+        //maxlength: 15
+    }
+   /* retypePwd: {
         type: String,
         required: true,
         minlength: 6,
         maxlength: 15
     }
-    
+    */
 });
 
 module.exports = mongoose.model("User",userSchema);
