@@ -6,11 +6,6 @@ const uLogin = require('../service/login');
 const user = require('../models/user')
 
 router.post('/',uLogin);
-/* (req,res) => {
-    jwt.sign({user},'privatekey',(err,token) => {
-        console.log(token);
-    });
-});
-*/
+
 
 module.exports = router;

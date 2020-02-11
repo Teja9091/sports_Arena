@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const  User = require('../models/user');
 
-const auth = async (req,res) => {
+const login = async (req,res) => {
     
     let user = await User.findOne({email: req.body.email});
     if(!user) return res.status(400).send('Invalid email or password');
@@ -13,10 +13,21 @@ const auth = async (req,res) => {
     jwt.sign({user},'privatekey',(err,token) => {
         console.log(token);
         res.send(token);
-    })
-    res.send('Successfully logged-in');
-
-    
+    });
+  
 };
+/*
+function verifyToken(req,res,next) {
+    const bearerHeader = req.headers.authorization;
 
-module.exports = auth;
+    if(bearerHeader) {
+        const bearer = bearerHeader.split(' ')[1];
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    };
+};
+*/
+module.exports = login;

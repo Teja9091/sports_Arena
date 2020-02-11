@@ -12,7 +12,6 @@ function validateUser(userData) {
         email: Joi.string().min(4).max(30).required().email(),
         mobile: Joi.string().min(10).max(10).required(),
         pwd: Joi.string().min(4).max(22).required(),
-        //retypePwd: Joi.string().min(4).max(22).required(),
     }
     return Joi.validate(userData,schema , {abortEarly: false});
 };
@@ -22,7 +21,6 @@ const uData =  (req,res) => {
     if (result.error) return res.status(400).send(result.error.details[0].message);
     
     let pwd = req.body.pwd;
-    //let retypePwd = req.body.retypePwd;
     return bcrypt.hash(pwd,10)
     .then(hashedPassword => {
         let toCreate = new User({
@@ -46,29 +44,8 @@ const uData =  (req,res) => {
                 message: error.message
             })
         })
-        //return user.save();
     });
-    //if (pwd === retypePwd) {
-        
-    //} else res.status(400).send("Passwords doesn't match");
-
-    /*
-    let user = new User(toCreate)
-    //if(pwd === retypePwd) {
-        user = await user.save();
-        res.send(user);
-        console.log(user);
-    //} else console.log("Password entered doesnt match");
-    */
-  // if(toCreate.pwd === toCreate.retypePwd) {
-  
-    //bcrypt.hash(toCreate.pwd, saltRounds, function (err,hash) { 
-
     
-   // });
-
-    //} else res.status(400).send("Passwords doesn't match");
-
 };
 
 module.exports = uData;
