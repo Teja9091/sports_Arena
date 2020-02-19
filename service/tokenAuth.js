@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const tokenValidation = require('./login');
-
 
 
 function verifyToken(req,res,next) {
@@ -14,6 +12,7 @@ function verifyToken(req,res,next) {
     } else {
         res.sendStatus(403);
     };
+    next();
 };
 
 module.exports = verifyToken;

@@ -12,6 +12,7 @@ function validateUser(userData) {
         email: Joi.string().min(4).max(30).required().email(),
         mobile: Joi.string().min(10).max(10).required(),
         pwd: Joi.string().min(4).max(22).required(),
+        role: Joi.string()
     }
     return Joi.validate(userData,schema , {abortEarly: false});
 };
@@ -30,6 +31,7 @@ const uData =  (req,res) => {
             email: req.body.email,
             mobile: req.body.mobile,
             pwd: hashedPassword,
+            role: req.body.role
         });
         User.create(toCreate)
         .then(user => {
@@ -49,3 +51,4 @@ const uData =  (req,res) => {
 };
 
 module.exports = uData;
+module.exports.validate = validateUser;

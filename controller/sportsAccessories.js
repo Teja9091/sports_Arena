@@ -1,10 +1,16 @@
 const express = require('express');
-const accessories = require('../service/accessories');
+const jwt = require('jsonwebtoken');
+const {addProduct , Product} = require('../service/accessories');
+const tokenAuth = require('../service/tokenAuth');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/adminAuth');
 const router = express.Router();
 
-router.post('/', accessories.addProduct);
+
+
+router.post('/', [auth,admin],addProduct);
 router.get('/', async (req,res) => {
-    const products = await accessories.Product.find();
+    const products = await Product.find();
     res.send(products)
 });
 
