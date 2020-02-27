@@ -19,7 +19,7 @@ router.post('/login',async (req,res) => {
     console.log(token);
 
 });
-
+/*
 router.post('/users/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
@@ -30,9 +30,10 @@ router.post('/users/logout', auth, async (req, res) => {
         res.send()
     } catch (e) {
         res.status(500).send()
+        console.log(e);
     }
-})
+});
 
-
+*/
 
 module.exports = router;
