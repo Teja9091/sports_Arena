@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const productSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId, 
+const productSchema = mongoose.Schema({
+   // _id: mongoose.Schema.Types.ObjectId, 
     productName: {
         type: String,
         required: true
@@ -13,8 +13,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
- 
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
     category:[{type: mongoose.Schema.Types.ObjectId, ref: 'Products Category'}],
     
     seller: [{type: mongoose.Schema.Types.ObjectId, ref: 'Seller'}],

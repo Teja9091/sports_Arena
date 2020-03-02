@@ -6,6 +6,7 @@ const addProduct = (req,res) => {
         productName: req.body.productName,
         price: req.body.price,
         description: req.body.description,
+        userId: req.user,
         category: req.body.category,
         seller: req.body.seller
     });

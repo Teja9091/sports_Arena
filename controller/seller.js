@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Seller = require('../models/seller');
+const auth = require('../middleware/auth');
 
 router.post('/', async (req,res) => {
     let seller = await Seller.findOne({seller:req.body.seller});
@@ -16,7 +17,7 @@ router.post('/', async (req,res) => {
         res.send(seller);
 });
 
-router.get('/',async (req,res) => {
+router.get('/',auth, async (req,res) => {
     const sellers = await Seller.find();
     res.send(sellers);
 });
