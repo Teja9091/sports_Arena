@@ -41,20 +41,18 @@ const userSchema = new mongoose.Schema({
                 required: true
             }
         }],
-    cart: {
-        items: [
+    cart: [{
+        items:
             {
-                productId: {
-                  type: mongoose.Schema.Types.ObjectId,
-                  ref: 'Product',
-                  required: true
+                productId: mongoose.Schema.Types.ObjectId,
+                  ref: 'product'
                 },
-                quantity: { type: Number, required: true }
-            }
-            ]
-          }
+                quantity:Number
+            }]
      
 });
+
+const User = module.exports = mongoose.model("User",userSchema);
 
 userSchema.methods.generatingAuthToken =async function() { 
     const user = this
@@ -65,6 +63,10 @@ userSchema.methods.generatingAuthToken =async function() {
 
     return token
 };
+
+module.exports.addToCart = (condition, updateFields) => {
+    User.updateOne(condition, updateFields);
+}
 
 userSchema.methods.addToCart = function(product) {
     const cartProductIndex = this.cart.items.findIndex(cp => {
@@ -102,4 +104,4 @@ userSchema.methods.addToCart = function(product) {
     return this.save();
   };
   
-module.exports = mongoose.model("User",userSchema);
+

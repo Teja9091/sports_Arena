@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/products');
+const userService = require('../service/userValidation');
 
 router.post('/', (req, res, next) => {
-    const prodId = req.body.productId;
-    Product.findById(prodId)
-      .then(product => {
-        return req.user.addToCart(product);
-      })
-      .then(result => {
+    userService.addToCart(req.body,req.user).then(result => {
+      if(result){
         console.log(result);
         res.redirect('/cart');
+      } else {
+        console.error();
+      }
       });
   }); 
 
