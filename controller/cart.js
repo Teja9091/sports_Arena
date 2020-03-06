@@ -13,6 +13,7 @@ router.post('/cart/items', (req,res) => {
     })
     .catch((err)=> {
         res.status(400).json({err:err,message:'Unable to create cart'});
+        console.log(err);
     });
 });
 

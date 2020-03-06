@@ -2,7 +2,7 @@ const cartModel = require('../models/cart');
 
 
 const cartService = {
-    async addToCart(cartDetail){
+    async addToCart(cartDetail){async (req,res) => {
         try{
             if(cartDetail == null){
                 return res.status(400).send(result.error.details[0].message);
@@ -45,7 +45,7 @@ const cartService = {
         } catch(error) {
             return res.status(400).send(result.error.details[0].message);
         }
-
+    }
     }
 }
 
