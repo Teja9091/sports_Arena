@@ -24,7 +24,7 @@ app.use('/pCategories',pCategories);
 app.use('/products', products);
 app.use('/slot', slot);
 app.use('/slotBooking', slotBooking);
-app.use(cart);
+app.use('/cart',cart);
 //app.use('/order',order);
 
 

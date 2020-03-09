@@ -40,12 +40,12 @@ const userSchema = mongoose.Schema({
                 type: String,
                 required: true
             }
-        }]
-  /*  cart:[{
-        items:{type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+        }],
+    cart:[{
+        productId:{type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
         quantity: Number
     }]
-      */    
+         
 });
 
 
@@ -57,6 +57,10 @@ userSchema.methods.generatingAuthToken =async function() {
     await user.save()
     
     return token
+};
+
+userSchema.statics.findUser = function (findBy, value) {
+    return this.model(modelName).findOne({ [findBy]: value });
 };
 
 module.exports = mongoose.model("User",userSchema);
