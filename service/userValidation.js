@@ -50,30 +50,6 @@ const uData =  (req,res) => {
     
 }
 
-const addToCart = (cartDetail, user)=>{
-    try {
-
-        if(user == null){
-            console.log('invaliud user');
-
-        }
-        if(cartDetail == null){
-            console.log('Cart is empty');
-        } else {
-            const condition = {};
-            condition._id = user.id;
-            updateFields = {
-                $push: { cart: cartDetail }
-            };
-        
-            const result =  User.addToCart(condition, updateFields);
-            return result;
-        }
-    
-    } catch(error){
-        console.log(error);
-    }
-};
 
 module.exports = uData;
 module.exports.validate = validateUser;

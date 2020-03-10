@@ -1,21 +1,36 @@
 const express = require('express');
-const cart = require('../service/cart');
+const Cart = require('../models/cart')
 const router = express.Router();
 
-router.put('/add', (req,res)=>{
-    cart.addToCart(req.query,req.body).then((result) =>{
-        res.status(200).json({message:'Item added to cart', data: result});
-    }).catch((error) =>{
-        res.status(400).json({message: error.message});
-    })
+router.post('/add',async (req,res) => {
+    if(Cart.productId) {
+        for(let i=1; i < Cart.productId.length; i++) {
+            Cart.productId = Cart.productId.length
+        }
+    } else {
+        try {
+            let cart = new Cart({
+                userId: req.body.userId,
+                productId: req.body.productId,
+                quantity: req.body.quantity
+            });
+                await cart.save();
+                res.status(201).send(cart);
+        } catch (err) {
+            res.status(400).json({Error:"Error while updating cart to product"});
+        }
+    }
 });
-
-router.get('/cart', (req,res)=>{
-    cart.getAllCartItems(req.query).then((result) =>{
-        res.status(200).json({message:'Cart result', data: result});
-    }).catch((error) =>{
-        res.status(400).json({message: error.message});
-    })
+router.get('/',async (req,res) => {
+    try {
+        const products = await Cart.findOne({userId:req.query.userId})
+        .populate('product user');
+         res.status(200).send(products);
+    } catch (err) {
+        res.status(500).json({Error:"Incorrect userId or user doesnt have products in cart"});
+        console.log(err);
+    }
 });
 
 module.exports = router;
+
