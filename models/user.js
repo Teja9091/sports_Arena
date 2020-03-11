@@ -40,12 +40,17 @@ const userSchema = mongoose.Schema({
                 type: String,
                 required: true
             }
-        }]
-   /* cart:[{
-        productId:{type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
-        quantity: Number
-    }]
-      */   
+        }],
+        cart:[
+            {
+                productId:{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref:'Products'
+                },
+                qty: Number
+            }
+        ]
+        
 });
 
 

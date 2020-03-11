@@ -1,5 +1,6 @@
 const express = require('express');
-const Cart = require('../models/cart')
+const Cart = require('../models/cart');
+const cartService = require('../service/cart');
 const router = express.Router();
 
 router.put('/:userId&:productId',async (req,res) => {
@@ -10,19 +11,13 @@ router.put('/:userId&:productId',async (req,res) => {
         res.status(500).json({Error:"Update failed"});
     }
 });
-router.post('/add',async (req,res) => {
-    try {
-        let cart = new Cart({
-            userId: req.body.userId,
-            products: req.body.productId ,
-            quantity: req.body.quantity
-        });
-            await cart.save();
-            res.status(201).send(cart);
-    } catch (err) {
-        res.status(400).json({Error:"Error while updating cart to product"});
-    }
-});
+// router.put('/add',async (req,res) => {
+//     cartService.addToCart(req.query,req.body).then((result) =>{
+//         res.status(200).json({message:" Product added to cart", data: result});
+//     }).catch ((err) => {
+//         res.status(400).json({Error:"Error while updating cart to product"});
+//     });
+// });
 router.get('/:userId',async (req,res) => {
     try {
         const products = await Cart.findOne({userId:req.params.userId})
