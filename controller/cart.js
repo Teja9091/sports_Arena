@@ -14,7 +14,7 @@ router.post('/add',async (req,res) => {
     try {
         let cart = new Cart({
             userId: req.body.userId,
-            productId: req.body.productId,
+            products: req.body.productId ,
             quantity: req.body.quantity
         });
             await cart.save();
