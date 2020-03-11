@@ -11,7 +11,7 @@ const cart = require('./controller/cart');
 const slot = require('./controller/slot');
 const slotBooking = require('./controller/slotBooking');
 const app = express();
-
+/////server///////
 mongoose.connect('mongodb://localhost/sports_Arena')
     .then(() => console.log('Connected to db'))
     .catch(() => console.log('Connection failed'));
