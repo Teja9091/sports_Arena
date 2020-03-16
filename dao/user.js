@@ -9,6 +9,6 @@ exports.getById = (condition) => {
     return userModel.findOne(condition);
 }
 
-exports.getAllCartItems = (condition) => {
-    return userModel.find(condition);
+exports.getAllCartItems = (id) => {
+    return userModel.find(id).populate('cart.productId');
 }

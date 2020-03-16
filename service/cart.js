@@ -42,12 +42,13 @@ const cartService = {
             }
             let condition = {};
             condition['_id'] = userDetail.id;
-            const result = await userDAO.getAllCartItems(condition);
+            const result = await userDAO.getAllCartItems({ _id: userDetail.id });
 
             const cart = result[0].cart;
             let totalPrice = cart.reduce((accumulator, currentValue, index) => {
-                const indTotal = (((currentValue.productId.price - (currentValue.productId.price * currentValue.productId.discount / 100)) 
-                * currentValue.qty) * 100 / 100);
+                // const indTotal = (((currentValue.productId.price - (currentValue.productId.price * currentValue.productId.discount / 100)) 
+                // * currentValue.qty) * 100 / 100);
+                const indTotal = currentValue.productId.price * currentValue.qty;
                 cart[index]['total'] = indTotal;
                 return accumulator + currentValue.total;
             }, 0);
