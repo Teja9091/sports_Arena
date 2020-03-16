@@ -1,5 +1,4 @@
 const userDAO = require('../dao/user');
-const User = require('../models/user');
 
 
    exports.addToCart =  async (user,cartDetail) => {
@@ -7,7 +6,7 @@ const User = require('../models/user');
             let condition ={};
             let updateFields ={};
             if(cartDetail == null){
-                res.status(400).json({Error:"Error while updating cart to product"});
+                res.status(400).json({Error:"Error while updating product to cart"});
             }
             condition['_id'] = user.id;
             condition['cart.productId'] = cartDetail[0].productId;
@@ -38,7 +37,7 @@ const User = require('../models/user');
     exports.getAllCartItems = async (userDetail) => {
         try{
             if(userDetail == null){
-                res.status(400).json({Error:"Error while updating cart to product"});
+                res.status(400).json({Error:"Error while updating product to cart"});
             }
             let condition = {};
             condition['_id'] = userDetail.id;
@@ -59,15 +58,3 @@ const User = require('../models/user');
             res.status(400).json(error.message);
         }
     }
-
-
-exports.getCart = async (req,res) => {
-    try{
-        const cart = await User.findOne(req.query)
-        .populate('cart.productId')
-        res.status(200).send(cart);
-    } catch (err) {
-        res.status(400).json({error:"unable to get cart"});
-        console.log(err);
-    }
-}

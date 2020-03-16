@@ -10,5 +10,13 @@ exports.getById = (condition) => {
 }
 
 exports.getAllCartItems = (id) => {
-    return userModel.find(id).populate('cart.productId');
+    return userModel.find(id)
+    .populate({
+        path : 'cart.productId',
+        populate : ({
+            path: 'seller category',
+        })
+    
+    });
 }
+

@@ -17,7 +17,7 @@ router.post('/', async (req,res) => {
         res.send(seller);
 });
 
-router.get('/',auth, async (req,res) => {
+router.get('/', async (req,res) => {
     const sellers = await Seller.find();
     res.send(sellers);
 });

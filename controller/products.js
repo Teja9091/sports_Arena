@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const {addProduct , Product} = require('../service/accessories');
+const {addProduct , Product} = require('../service/products');
 const Category = require('../models/productCategories');
 const tokenAuth = require('../service/tokenAuth');
 const auth = require('../middleware/auth');
