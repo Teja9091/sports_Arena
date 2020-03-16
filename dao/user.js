@@ -8,3 +8,7 @@ exports.addToCart = (condition,updateFields) =>{
 exports.getById = (condition) => {
     return userModel.findOne(condition);
 }
+
+exports.getAllCartItems = (condition) => {
+    return userModel.find(condition);
+}

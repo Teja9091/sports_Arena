@@ -33,6 +33,30 @@ const User = require('../models/user');
         } catch(error){
             res.status(400).json(error.message);
         }
+    },
+
+    async getAllCartItems(userDetail){
+        try{
+            if(userDetail == null){
+                res.status(400).json({Error:"Error while updating cart to product"});
+            }
+            let condition = {};
+            condition['_id'] = userDetail.id;
+            const result = await userDAO.getAllCartItems(condition);
+
+            const cart = result[0].cart;
+            let totalPrice = cart.reduce((accumulator, currentValue, index) => {
+                const indTotal = (((currentValue.productId.price - (currentValue.productId.price * currentValue.productId.discount / 100)) 
+                * currentValue.qty) * 100 / 100);
+                cart[index]['total'] = indTotal;
+                return accumulator + currentValue.total;
+            }, 0);
+            return ({ cartItems: cart});
+
+
+        } catch(error){
+            res.status(400).json(error.message);
+        }
     }
 
 
