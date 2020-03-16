@@ -1,8 +1,8 @@
 const userDAO = require('../dao/user');
+const User = require('../models/user');
 
 
-const cartService = {
-    async addToCart(user,cartDetail){
+   exports.addToCart =  async (user,cartDetail) => {
         try{
             let condition ={};
             let updateFields ={};
@@ -59,6 +59,15 @@ const cartService = {
             res.status(400).json(error.message);
         }
     }
-};
 
-module.exports = cartService;
+
+exports.getCart = async (req,res) => {
+    try{
+        const cart = await User.findOne(req.query)
+        .populate('cart.productId')
+        res.status(200).send(cart);
+    } catch (err) {
+        res.status(400).json({error:"unable to get cart"});
+        console.log(err);
+    }
+}

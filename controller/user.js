@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const userData= require('../service/userValidation');
 const cartService = require('../service/cart');
+const auth = require('../middleware/auth');
 
-router.post('/',userData);
+router.post('/register',userData);
 
 router.put('/add',async (req,res) => {
     cartService.addToCart(req.query,req.body).then((result) =>{
@@ -12,6 +13,8 @@ router.put('/add',async (req,res) => {
         res.status(400).json({Error:"Error while updating cart to product"});
     });
 });
+router.get('/cart', cartService.getCart);
+router.post('/order');
 
 router.get('/cart', (req,res)=>{
     cartService.getAllCartItems(req.query).then((result) =>{
