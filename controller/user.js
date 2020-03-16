@@ -13,8 +13,8 @@ router.put('/add',async (req,res) => {
         res.status(400).json({Error:"Error while updating cart to product"});
     });
 });
-router.get('/cart', cartService.getCart);
-router.post('/order');
+
+//router.post('/order');
 
 router.get('/cart', (req,res)=>{
     cartService.getAllCartItems(req.query).then((result) =>{

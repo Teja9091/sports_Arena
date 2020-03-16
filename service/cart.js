@@ -33,9 +33,9 @@ const User = require('../models/user');
         } catch(error){
             res.status(400).json(error.message);
         }
-    },
+    }
 
-    async getAllCartItems(userDetail){
+    exports.getAllCartItems = async (userDetail) => {
         try{
             if(userDetail == null){
                 res.status(400).json({Error:"Error while updating cart to product"});
