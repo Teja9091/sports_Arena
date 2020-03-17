@@ -1,4 +1,5 @@
 const userDAO = require('../dao/user');
+const User = require('../models/user')
 
 
    exports.addToCart =  async (user,cartDetail) => {

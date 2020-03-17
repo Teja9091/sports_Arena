@@ -69,5 +69,8 @@ userSchema.methods.generatingAuthToken =async function() {
     return token
 };
 
+exports.addToCart = (condition,updateFields) =>{
+    return userSchema.updateOne(condition,updateFields);
+ }
 
 module.exports = mongoose.model("User",userSchema);

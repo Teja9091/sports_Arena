@@ -5,6 +5,7 @@ const orderSchema = mongoose.Schema({
         {
             product: {type: Object , required: true},
             qty: {type: Number , required: true},
+            total:{type: Number, required: true}
     
         }
     ],

@@ -3,11 +3,9 @@ const Order = require('../models/order');
 
 
 exports.order = async function (req,res) {
-    console.log("inside function");
     
     let userDetail = req.body;
     try{
-        console.log("userDetail",userDetail);
         
         let condition = {};
         condition['_id'] = userDetail.userId;
@@ -20,7 +18,7 @@ exports.order = async function (req,res) {
             return accumulator + currentValue.total;
         }, 0);
         const products = cart.map(i=> {
-            return {qty:i.qty, product:i.productId};
+            return {qty:i.qty, product:i.productId, total:i.total};
         });
         const order = await new Order({
             user: {
