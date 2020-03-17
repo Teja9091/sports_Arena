@@ -51,7 +51,7 @@ const userDAO = require('../dao/user');
                 cart[index]['total'] = indTotal;
                 return accumulator + currentValue.total;
             }, 0);
-            return ({ cartItems: cart});
+            return ({ products: cart});
 
 
         } catch(error){

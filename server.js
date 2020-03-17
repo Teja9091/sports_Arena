@@ -5,7 +5,7 @@ const uLogin = require('./controller/userLoginLogout');
 const seller = require('./controller/seller');
 const pCategories = require('./controller/categories');
 const products = require('./controller/products');
-//const order = require('./controller/orders');
+const order = require('./controller/orders');
 const app = express();
 mongoose.connect('mongodb://localhost/sports_Arena')
     .then(() => console.log('Connected to db'))
@@ -17,7 +17,7 @@ app.use('/',uLogin);
 app.use('/seller',seller);
 app.use('/pCategories',pCategories);
 app.use('/products', products);
-
+app.use('/order',order)
 
 
 app.listen(2024, () => console.log('Listening on port 2024'));
